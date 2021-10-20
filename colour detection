@@ -1,0 +1,36 @@
+String val;     // Data received from serial port
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(4, 6, 10, 11, 12, 13);
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 1);
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+  
+  if (Serial.available()) {
+    // If data is available to read,
+    val = Serial.readStringUntil('\n');
+    val.trim();
+    Serial.println(val);
+  }
+  lcd.clear();
+  if (val == "red") {
+    lcd.print("Red");
+  }
+  else if (val == "green") {
+    lcd.print("Green");
+  }
+  else if (val == "blue") {
+    lcd.print("blue");
+  }
+  else if (val == "none"){
+    lcd.print("Unknown");
+  }
+  delay(300);
+  
+}
